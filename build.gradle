@@ -1,0 +1,62 @@
+
+plugins {
+  id "maven-publish"
+  id "com.ave.versioning" version '1.4.0'
+}
+
+group = "com.ave"
+
+ext {
+  nvimQtBuildDir = file("${buildDir}/nvimqt")
+  distZip = file("${buildDir}/dist.zip")
+}
+
+def cleanTask = tasks.register("clean", Delete) {
+  delete buildDir
+}
+
+def buildTask = tasks.register("build") {
+  outputs.dir(nvimQtBuildDir)
+  doLast {
+    nvimQtBuildDir.mkdirs()
+
+    exec {
+      commandLine "cmake", "-DCMAKE_BUILD_TYPE=Release", "../.."
+      workingDir nvimQtBuildDir
+    }
+
+    exec {
+      commandLine "make"
+      workingDir nvimQtBuildDir
+    }
+  }
+}
+
+def packageTask = tasks.register("package", Zip) {
+  dependsOn buildTask
+  from("${nvimQtBuildDir}/bin/nvim-qt.app") {
+    into "nvim-qt.app"
+  }
+  destinationDir distZip.parentFile
+  archiveName distZip.name
+}
+
+publishing {
+  publications {
+    neovim(MavenPublication) {
+      artifact(distZip) {
+        builtBy packageTask
+      }
+    }
+  }
+  repositories {
+    mavenLocal()
+    maven {
+      url aveMavenUrl
+      credentials {
+        username aveMavenUser
+        password aveMavenPassword
+      }
+    }
+  }
+}
