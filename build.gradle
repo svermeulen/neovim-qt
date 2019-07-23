@@ -11,6 +11,10 @@ ext {
   distZip = file("${buildDir}/dist.zip")
 }
 
+versioning {
+  tagFormat = "ave%s.%s"
+}
+
 def cleanTask = tasks.register("clean", Delete) {
   delete buildDir
 }
