@@ -2,3 +2,7 @@
 build/
 src/gui/runtime/doc/tags
 third-party/msgpack*
+.gradle
+!.vimlocal.moon
+!.version.properties
+/includedBuilds.txt
