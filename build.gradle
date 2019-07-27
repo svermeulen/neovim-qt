@@ -1,7 +1,7 @@
 
 plugins {
   id "maven-publish"
-  id "com.ave.versioning" version '1.4.0'
+  id "ave-versioning" version '1.4.0'
 }
 
 group = "com.ave"
@@ -11,9 +11,9 @@ ext {
   distZip = file("${buildDir}/dist.zip")
 }
 
-versioning {
-  tagFormat = "ave%s.%s"
-}
+// versioning {
+//   tagFormat = "ave%s.%s.%s"
+// }
 
 def cleanTask = tasks.register("clean", Delete) {
   delete buildDir
