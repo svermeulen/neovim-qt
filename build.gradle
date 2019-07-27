@@ -1,7 +1,7 @@
 
 plugins {
   id "maven-publish"
-  id "ave-versioning" version '1.4.0'
+  id "ave-versioning" version '0.3.0-alpha.3'
 }
 
 group = "com.ave"
