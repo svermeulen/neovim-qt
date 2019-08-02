@@ -1,7 +1,7 @@
 
 plugins {
   id "maven-publish"
-  id "ave-versioning" version '0.3.0-alpha.3'
+  id "ave-versioning" version '1.0.0'
 }
 
 group = "com.ave"
@@ -12,7 +12,7 @@ ext {
 }
 
 versioning {
-  tagFormat = "ave%s.%s.%s"
+  tagFormat = "ave%s"
 }
 
 def cleanTask = tasks.register("clean", Delete) {
